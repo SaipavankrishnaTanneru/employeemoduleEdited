@@ -1,0 +1,109 @@
+/* components/EmployeeLanding/SelectEmployeeTypeModal.module.css */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1300;
+}
+
+.modal {
+  background: #fff;
+  width: 441px;
+  height: 357px;
+  border-radius: 27px;
+  padding: 40px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-shrink: 0; 
+}
+
+.title {
+  font-weight: 700;
+  font-size: 18px;
+  color: #393939;
+}
+
+.closeText {
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  padding: 0 5px;
+}
+.closeText:hover {
+  color: #000;
+}
+
+.body {
+  flex-grow: 1; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- THIS IS THE UPDATED BLOCK --- */
+
+/* This is the container for the buttons */
+/* It now uses your 'gap' spec and is transparent */
+.typeSelector {
+  display: flex;
+  gap: 15px; /* Your 'gap: 15px' spec */
+  
+  /* Removed all old styles (border, background, etc.) */
+}
+
+/* This is the style for the individual buttons */
+.typeButton {
+  /* Your new Figma specs */
+  /* width: 85px; */
+  height: 34px;
+  border-radius: 51px; /* Pill shape */
+  padding: 2px 23px;
+  
+  /* Text and layout */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  
+  /* Default (inactive) state styles */
+  background-color: #F7F7F7;
+  color: #6B7280;
+  border: 1px solid #E0E0E0;
+}
+
+/* This is the 'active' state, which overrides the styles above */
+.typeButton.active {
+  background-color: #3425FF;
+  color: #FFFFFF;
+  border-color: #3425FF; /* Match the background */
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+/* --- END OF UPDATE --- */
+
+.footer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 40px;
+  flex-shrink: 0;
+}

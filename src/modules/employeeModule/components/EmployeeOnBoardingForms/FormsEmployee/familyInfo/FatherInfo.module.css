@@ -1,0 +1,58 @@
+/* MAIN CONTAINER */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-bottom: 10px;
+}
+
+/* HEADER (Father / Mother title inside parent) */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #5c5c6b;
+}
+
+/* GRID LAYOUT (same as FamilyInfo) */
+.formGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;   /* Matches FamilyInfo spacing */
+}
+
+/* NAME + LATE CHECKBOX */
+.nameField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+
+.checkboxRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: -4px; /* pulls checkbox closer to input */
+}
+
+.checkboxLabel {
+  font-size: 14px;
+  color: #82808F;
+}
+
+.checkboxLabel input {
+  width: 16px;
+  height: 16px;
+}
