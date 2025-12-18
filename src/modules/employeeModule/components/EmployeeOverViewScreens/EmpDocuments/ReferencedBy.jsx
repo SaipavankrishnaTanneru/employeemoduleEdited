@@ -8,14 +8,14 @@ import {
   Chip,
 } from "@mui/material";
 import { ReactComponent as ExpandIcon } from "assets/Family/expandIcon.svg";
-import styles from "./ReferredBy.module.css";
+import styles from "./ReferencedBy.module.css";
 import accordionheadericon from "assets/Family/accordionheadericon.svg";
 import EmployeeDetailsCard from "widgets/EmployeeDetailsCard/EmployeeDetailsCard";
 import rightDividerIcon from "assets/Family/dividerRightImg.svg";
 import leftDividerIcon from "assets/Family/dividerLeftImg.svg";
 import profileIcon from "assets/Family/profile.svg";
- 
-const ReferredBy = ({ expanded, onChange }) => {
+
+const ReferenceDetailsDocuments = ({ expanded, onChange }) => {
   return (
    
       <Accordion
@@ -48,7 +48,7 @@ const ReferredBy = ({ expanded, onChange }) => {
             backdropFilter: "blur(9.1px)",
             margin: "0px",
           },
-       
+        
         }}
       >
         <AccordionSummary
@@ -73,7 +73,7 @@ const ReferredBy = ({ expanded, onChange }) => {
               <div className={styles.header_right}>
               {!expanded && (
                 <Chip
-                  label="+12"
+                  label="Venkat Boppana"
                   size="small"
                   sx={{
                     marginLeft: 1,
@@ -111,14 +111,14 @@ const ReferredBy = ({ expanded, onChange }) => {
           dividerColor="#3425ff"
         />
       </div>
- 
-     
+
+      
     </div>
   </Typography>
 </AccordionDetails>
       </Accordion>
-   
+    
   );
 };
- 
-export default ReferredBy;
+
+export default ReferenceDetailsDocuments;

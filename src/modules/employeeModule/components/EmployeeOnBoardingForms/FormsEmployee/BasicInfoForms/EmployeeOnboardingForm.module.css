@@ -23,11 +23,7 @@
   background: #fff;
   cursor: pointer;
 }
-.formContainer {
-  height: 100%;
-  overflow-y: auto;  /* This is the ONLY scroll */
-  padding: 20px;
-}
+/*  */
 
 
 .submitButton {
@@ -162,7 +158,8 @@
   font-size: 16px;
   font-weight: 500;
   color: #82808F;
-  margin: 0;
+  margin: 5px 0 5px 0;
+  padding-left: 10px;
   padding-bottom: 16px;
 }
 

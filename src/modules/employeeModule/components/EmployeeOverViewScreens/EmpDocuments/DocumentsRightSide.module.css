@@ -8,7 +8,11 @@
     font-weight: 600;
     color: #56555C;
 }
-
+.documentsAcardions{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
 .documentsAcardions{
     display: flex;
     flex-direction: column;

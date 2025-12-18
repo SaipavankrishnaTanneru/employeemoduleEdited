@@ -3,22 +3,25 @@ import React from "react";
 import EmployeeModuleHeaderIcon from "../EmployeeModuleHeaderIcon/EmployeeModuleHeaderIcon";
 import styles from "../EmployeeModuleHeader/EmployeeModuleHeader.module.css";
 import blueLine from "assets/application-analytics/blue_arrow_line.png";
-
-// --- 1. Import the Searchbox and its Icon ---
 import Searchbox from "../../Searchbox/Searchbox";
+
 const SearchIcon = () => (
   <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M12.6 12.6L15.75 15.75M14.25 8.25C14.25 11.5637 11.5637 14.25 8.25 14.25C4.93629 14.25 2.25 11.5637 2.25 8.25C2.25 4.93629 4.93629 2.25 8.25 2.25C11.5637 2.25 14.25 4.93629 14.25 8.25Z" stroke="#6B7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
-// --- 2. Accept 'searchTerm' and 'onSearchChange' props ---
-const EmployeeModuleHeader = ({ searchTerm, onSearchChange }) => {
+const EmployeeModuleHeader = ({ searchTerm, onSearchChange, onSearchSubmit }) => {
+  
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && onSearchSubmit) {
+      onSearchSubmit();
+    }
+  };
+
   return (
-    // The main wrapper now has the background and padding
     <div id="search_header_wrapper" className={styles.search_header_wrapper}>
       
-      {/* Top section with icon and text */}
       <div className={styles.headerTop}>
         <div id="search_header_icon_wrrapper">
           <EmployeeModuleHeaderIcon height="54" width="54" />
@@ -31,18 +34,16 @@ const EmployeeModuleHeader = ({ searchTerm, onSearchChange }) => {
         </div>
       </div>
       
-      {/* Blue line image */}
       <figure className={styles.blueLine}>
         <img src={blueLine} alt="decorative line" />
       </figure>
 
-      {/* --- 3. Add the Searchbox *inside* the header --- */}
-      <div className={styles.searchContainer}>
+      <div className={styles.searchContainer} onKeyDown={handleKeyDown}>
         <Searchbox
           icon={<SearchIcon />}
           placeholderText="Search with employee code, full name"
-          onValueChange={onSearchChange} // Pass the handler from the parent
-          // value={searchTerm} // Uncomment if your Searchbox is a controlled component
+          onValueChange={onSearchChange} 
+          value={searchTerm} 
         />
       </div>
     </div>

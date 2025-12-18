@@ -6,6 +6,7 @@ import SkillTestForm from '../../EmployeeSkillTest/SkillTestForm';
 import SuccessPage from '../../SuccessPage/SuccessPage'; // <-- 1. Import the new SuccessPage
 import leftarrow from 'assets/SkillTest/LeftArrow.svg';
 import rightarrow from 'assets/SkillTest/RightArrow.svg';
+import Backarrow from 'assets/onboarding_status_table/leftarrow.svg';
 
 // This is the header for the *page*
 const PageHeader = () => {
@@ -15,7 +16,7 @@ const PageHeader = () => {
 
   return (
     <div className={styles.pageHeader}>
-      <img src={leftarrow} alt="Back" className={styles.backArrow} onClick={goBack} />
+      <img src={Backarrow} alt="Back" className={styles.backArrow} onClick={goBack} />
       <h3>Onboard New Employee</h3>
     </div>
   );
@@ -83,7 +84,7 @@ const OnboardNewEmployeePage = () => {
             )}
           </div>
 
-          {/* Footer with Back/Submit buttons */}
+          {/* Footer with Back/Submit buttons
           <div className={styles.footer}>
             <button
               type="button"
@@ -102,7 +103,7 @@ const OnboardNewEmployeePage = () => {
               <span>{isLoading ? 'Submitting...' : 'Submit'}</span>
               {!isLoading && <img src={rightarrow} alt="Submit" />}
             </button>
-          </div>
+          </div> */}
         </>
       )}
     </div>

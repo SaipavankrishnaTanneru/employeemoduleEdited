@@ -10,14 +10,22 @@
   z-index: 499;
   gap: 181px;
 
+  /* ✅ UPDATED BACKGROUND */
+  /* This creates a white tint that gets slightly more solid towards the bottom, 
+     but stays transparent enough to let the blur show through. */
+  background: linear-gradient(
+    180deg, 
+    rgba(255, 255, 255, 0.6) 0%, 
+    rgba(255, 255, 255, 0.85) 100%
+  );
 
-background: linear-gradient(180deg, rgba(255, 255, 255, 0.70) -24.39%, #FFF 30.02%);
+  /* ✅ INCREASED BLUR */
+  /* Increased from 12px to 20px for an "excellent" creamy blur */
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 
-
-
-
-  /* Optional subtle shadow for depth
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); */
+  /* Optional: A very subtle border helps define the edge on white backgrounds */
+  border-top: 1px solid rgba(255, 255, 255, 0.3); 
 }
 
 

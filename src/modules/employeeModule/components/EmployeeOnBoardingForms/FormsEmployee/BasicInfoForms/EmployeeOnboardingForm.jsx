@@ -3,6 +3,7 @@ import { Formik, Form } from "formik";
 import BasicInfoFields from "./BasicInfoFields";
 import WorkExperienceFields from "./WorkExperienceForm";
 import styles from "./EmployeeOnboardingForm.module.css";
+import drividerLine from"assets/EmployeeOnBoarding/dividerline.svg";
 
 const EmployeeOnboardingForm = () => {
 
@@ -72,8 +73,15 @@ const EmployeeOnboardingForm = () => {
 
           <BasicInfoFields formik={formik} />
 
-          <h2 className={styles.formSectionTitle}>Working Information</h2>
+          <h2 className={styles.formSectionTitle}>Working Information
+            <img
+            src={drividerLine}
+            alt="divider"
+            className={styles.dividerImage}
+          />
+            </h2>  
           <WorkExperienceFields formik={formik} />
+          
 
           
           

@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./AddFieldWidget.module.css";
-import removeIcon from "../../assets/icons/legendcrossicon.svg";
+// Ensure this path is correct
+import removeIcon from "../../assets/icons/legendcrossicon.svg"; 
 
 const AddFieldWidget = ({
   index,
@@ -14,7 +15,7 @@ const AddFieldWidget = ({
 }) => {
   const isFirst = index === 0;
 
-  /* ---------------- SIMPLE BLOCK*/
+  /* ---------------- SIMPLE BLOCK */
   if (isFirst && !forceFieldset) {
     return (
       <div className={styles.simpleBlock}>
@@ -24,21 +25,26 @@ const AddFieldWidget = ({
             <div className={styles.simpleLine}></div>
           </>
         )}
-
         <div className={styles.simpleContent}>{children}</div>
       </div>
     );
   }
 
-  /* ---------------- FIELDSET BLOCK  */
+  /* ---------------- FIELDSET BLOCK (Div Simulation) */
   return (
-    <fieldset className={styles.fieldsetBox}>
-      <legend className={styles.legendWrapper}>
+    // Changed <fieldset> to <div>
+    <div className={styles.fieldsetBox}>
+      
+      {/* Changed <legend> to <div> */}
+      <div className={styles.legendWrapper}>
         <div className={styles.legendRow}>
+          
+          {/* Left Title */}
           <div className={`${styles.legendTag} ${styles.activeTag}`}>
             {title}
           </div>
 
+          {/* Right Actions */}
           <div className={styles.actions}>
             <div
               className={styles.legendTag}
@@ -55,10 +61,10 @@ const AddFieldWidget = ({
             />
           </div>
         </div>
-      </legend>
+      </div>
 
       <div className={styles.fieldsetContent}>{children}</div>
-    </fieldset>
+    </div>
   );
 };
 

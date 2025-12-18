@@ -1,112 +1,68 @@
+
 import React from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
-import BarGraph from "../graph-widget/BarGraph";
-import PercentBox from "./PercentBox";
-
 import styles from "./Accordian.module.css";
 import graphTitleIcon from "assets/application-analytics/paper.svg";
-import reddot2 from "assets/application-analytics/red2.svg";
-import greendot2 from "assets/application-analytics/green2.svg";
 
-/**
- * Controlled Accordion
- * Props are safely defaulted to avoid runtime crashes
- */
-const Accordian = ({
-  zoneTitle = "",
-  percentageItems = [],       // ✅ DEFAULT
-  graphBarData = [],          // ✅ DEFAULT
-  expanded = false,
-  onChange,
-}) => {
+const Accordian = ({ zoneTitle, expanded, onChange, children }) => {
   return (
     <Accordion
-      expanded={Boolean(expanded)}
+      expanded={!!expanded}
       onChange={(e, isExpanded) => onChange?.(e, isExpanded)}
       sx={{
-        "& .MuiAccordionDetails-root": {
-          padding: "8px 16px 0px",
-        },
-        "&&": {
+        "&.MuiAccordion-root": {
           boxShadow: "none",
           borderRadius: "10px",
           border: "1px solid #E6E4F0",
           background: "rgba(255, 255, 255, 0.40)",
-          backdropFilter: "blur(9.1px)",
+          backdropFilter: "blur(9px)",
+          padding: 0, // 
         },
-        "&::before": {
-          display: "none",
+        "&::before": { display: "none" },
+        "& .MuiAccordionSummary-root": {
+          alignItems: "center",
+          minHeight: "unset",
         },
-        "& .MuiButtonBase-root": {
-          alignItems: "flex-start",
-          padding: "12px 18px",
+        "& .MuiAccordionSummary-content": {
+          // padding: "12px 18px",
+          paddingTop: "12px",
+          paddingBottom: "12px",
+          margin: "0px !important",
+        },
+        "& .MuiAccordionDetails-root": {
+          padding: 0, // optional — remove if you want spacing in details
         },
         "&.Mui-expanded": {
           border: "1px solid #B4BCFF",
           background: "rgba(255, 255, 255, 0.30)",
-          margin: 0,
           boxShadow:
-            "0 8px 16px rgba(0, 0, 0, 0.14), 0 0 2px rgba(0, 0, 0, 0.12)",
+            "0 8px 16px 0 rgba(0, 0, 0, 0.14), 0 0 2px 0 rgba(0, 0, 0, 0.12)",
         },
       }}
     >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
-        aria-controls="accordion-content"
-        id="accordion-header"
-        sx={{
-          "& .MuiAccordionSummary-content": {
-            margin: "0 !important",
-          },
-          "&.Mui-expanded .MuiAccordionSummary-content": {
-            margin: "0 !important",
-          },
-        }}
+        aria-controls={`${zoneTitle}-content`}
+        id={`${zoneTitle}-header`}
       >
         <Typography component="span">
           <div className={styles.title_header}>
             <figure>
-              <img src={graphTitleIcon} alt="Graph Title" />
+              <img src={graphTitleIcon} alt="Title Icon" />
             </figure>
-
             <div className={styles.header_right}>
               <p className={styles.header_title}>{zoneTitle}</p>
             </div>
           </div>
-
-          {/* ---------- Percentage Summary (collapsed state) ---------- */}
-          {!expanded && Array.isArray(percentageItems) && percentageItems.length > 0 && (
-            <PercentBox
-              items={percentageItems.map((item) => ({
-                ...item,
-                percent: Math.round(Number(item.percent) || 0),
-              }))}
-            />
-          )}
         </Typography>
       </AccordionSummary>
 
       <AccordionDetails>
-        <Typography component="div">
-          <BarGraph graphBarData={graphBarData} />
-
-          <div className={styles.dots_container}>
-            <div className={styles.dot_part}>
-              <img src={reddot2} alt="Issued" />
-              <p>Issued</p>
-            </div>
-
-            <div className={styles.dot_part}>
-              <img src={greendot2} alt="Sold" />
-              <p>Sold</p>
-            </div>
-          </div>
-        </Typography>
+        <Typography component="div">{children}</Typography>
       </AccordionDetails>
     </Accordion>
   );

@@ -56,196 +56,54 @@ function AppWrapper() {
           {/* --- 🟢 Public Routes --- */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/access-denied" element={<AccessDeniedPage />} />
-
-          {/* Redirect to dashboard */}
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
           {/* --- 🔒 Protected Routes --- */}
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute allowedRoles={["DO", "CO", "HR"]}>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/application"
-            element={
-              <ProtectedRoute allowedRoles={["DO", "CO"]}>
-                <Application />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/scopes/students"
-            element={
-              <ProtectedRoute allowedRoles={["DO", "CO"]}>
-                <Students />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/fleet"
-            element={
-              <ProtectedRoute allowedRoles={["DO", "CO"]}>
-                <Fleet />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/warehouse"
-            element={
-              <ProtectedRoute allowedRoles={["DO", "CO"]}>
-                <Warehouse />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/sms"
-            element={
-              <ProtectedRoute allowedRoles={["DO", "CO"]}>
-                <Sms />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/question-bank"
-            element={
-              <ProtectedRoute allowedRoles={["DO", "CO"]}>
-                <QuestionBank />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/assets-management"
-            element={
-              <ProtectedRoute allowedRoles={["DO", "CO"]}>
-                <AssetsManagement />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/payments-service"
-            element={
-              <ProtectedRoute allowedRoles={["DO", "CO"]}>
-                <PaymentsService />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/cctv"
-            element={
-              <ProtectedRoute allowedRoles={["DO", "CO"]}>
-                <Cctv />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/hrms"
-            element={
-              <ProtectedRoute allowedRoles={["DO", "CO"]}>
-                <Hrms />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/masters"
-            element={
-              <ProtectedRoute allowedRoles={["DO", "CO"]}>
-                <Masters />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/dashboard" element={<ProtectedRoute allowedRoles={["DO", "CO", "HR"]}><Dashboard /></ProtectedRoute>} />
+          <Route path="/application" element={<ProtectedRoute allowedRoles={["DO", "CO"]}><Application /></ProtectedRoute>} />
+          <Route path="/scopes/students" element={<ProtectedRoute allowedRoles={["DO", "CO"]}><Students /></ProtectedRoute>} />
+          <Route path="/fleet" element={<ProtectedRoute allowedRoles={["DO", "CO"]}><Fleet /></ProtectedRoute>} />
+          <Route path="/warehouse" element={<ProtectedRoute allowedRoles={["DO", "CO"]}><Warehouse /></ProtectedRoute>} />
+          <Route path="/sms" element={<ProtectedRoute allowedRoles={["DO", "CO"]}><Sms /></ProtectedRoute>} />
+          <Route path="/question-bank" element={<ProtectedRoute allowedRoles={["DO", "CO"]}><QuestionBank /></ProtectedRoute>} />
+          <Route path="/assets-management" element={<ProtectedRoute allowedRoles={["DO", "CO"]}><AssetsManagement /></ProtectedRoute>} />
+          <Route path="/payments-service" element={<ProtectedRoute allowedRoles={["DO", "CO"]}><PaymentsService /></ProtectedRoute>} />
+          <Route path="/cctv" element={<ProtectedRoute allowedRoles={["DO", "CO"]}><Cctv /></ProtectedRoute>} />
+          <Route path="/hrms" element={<ProtectedRoute allowedRoles={["DO", "CO"]}><Hrms /></ProtectedRoute>} />
+          <Route path="/masters" element={<ProtectedRoute allowedRoles={["DO", "CO"]}><Masters /></ProtectedRoute>} />
 
           {/* --- 🟦 EMPLOYEE MODULE ROUTES --- */}
 
-          {/* 🔹 DO ROUTE (District Officer Review) */}
-          <Route
-            path="/scopes/employee/do-review/:taskId/*"
-            element={
-              <ProtectedRoute allowedRoles={["DO"]}>
-                <EmployeeModuleContainer role="DO" />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/scopes/employee/*"
-            element={
-             <ProtectedRoute allowedRoles={["DO", "CO", "HR"]}>
-                <EmployeeOnBoardingContainer role="DO" />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/scopes/employee/hr/overview/*"
-            element={
-             <ProtectedRoute allowedRoles={["DO", "CO", "HR"]}>
-                <EmployeeOverviewHRContainer role="DO" />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* 🔹 CO ROUTE (Central Office Review) */}
-          <Route
-            path="/scopes/employee/co-review/:taskId/*"
-            element={
-              <ProtectedRoute allowedRoles={["CO"]}>
-                <EmployeeModuleContainer role="CO" />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* 🔹 HR ROUTE (HR Employee Review) */}
-          <Route
-            path="/scopes/employee/hr-review/:taskId/*"
-            element={
-              <ProtectedRoute allowedRoles={["HR"]}>
-                <EmployeeModuleContainer role="HR" />
-              </ProtectedRoute>
-            }
-          />
+          {/* 🔹 NEW EMPLOYEE ONBOARDING FORM (DO + CO + HR) */}
+          <Route path="/scopes/employee/new-employee-onboarding/*" element={<ProtectedRoute allowedRoles={["DO", "CO", "HR"]}><NewEmployeeOnboarding /></ProtectedRoute>} />
+          <Route path="/scopes/employee/hr/new-employee-onboarding/*" element={<ProtectedRoute allowedRoles={["HR"]}><NewEmployeeOnboarding /></ProtectedRoute>} />
 
           {/* 🔹 NEW EMPLOYEE ONBOARDING TABLE PAGE */}
-          <Route
-            path="/scopes/employee/new_employee_onboarding"
+          <Route path="/scopes/employee/new_employee_onboarding" element={<ProtectedRoute allowedRoles={["DO", "CO", "HR"]}><NewEmployeeOnboardingTable /></ProtectedRoute>} />
+
+          {/* 🔹 REVIEW ROUTES */}
+          <Route path="/scopes/employee/do-review/:taskId/*" element={<ProtectedRoute allowedRoles={["DO"]}><EmployeeModuleContainer role="DO" /></ProtectedRoute>} />
+          <Route path="/scopes/employee/co-review/:taskId/*" element={<ProtectedRoute allowedRoles={["CO"]}><EmployeeModuleContainer role="CO" /></ProtectedRoute>} />
+          <Route path="/scopes/employee/hr-review/:taskId/*" element={<ProtectedRoute allowedRoles={["HR"]}><EmployeeModuleContainer role="HR" /></ProtectedRoute>} />
+
+          {/* 🔹 NEW: EMPLOYEE OVERVIEW (SEARCH RESULT) */}
+          <Route 
+            path="/scopes/employee/overview/:employeeId" 
             element={
               <ProtectedRoute allowedRoles={["DO", "CO", "HR"]}>
-                <NewEmployeeOnboardingTable />
+                <EmployeeOverviewHRContainer />
               </ProtectedRoute>
-            }
+            } 
           />
 
-          {/* 🔹 NEW EMPLOYEE ONBOARDING FORM (DO + CO + HR) */}
-          <Route
-            path="/scopes/employee/new-employee-onboarding/*"
-            element={
-              <ProtectedRoute allowedRoles={["DO", "CO", "HR"]}>
-                <NewEmployeeOnboarding />
-              </ProtectedRoute>
-            }
-          />
+          {/* 🔹 HR OVERVIEW (Existing) */}
+          <Route path="/scopes/employee/hr/overview/*" element={<ProtectedRoute allowedRoles={["DO", "CO", "HR"]}><EmployeeOverviewHRContainer role="DO" /></ProtectedRoute>} />
 
-          {/* 🔹 HR SPECIAL ENTRY INTO ONBOARDING */}
-          <Route
-            path="/scopes/employee/hr/new-employee-onboarding/*"
-            element={
-              <ProtectedRoute allowedRoles={["HR"]}>
-                <NewEmployeeOnboarding />
-              </ProtectedRoute>
-            }
-          />
+          {/* 🔹 COLLEGE ONBOARDING */}
+          <Route path="/scopes/employee/college-onboarding/*" element={<ProtectedRoute allowedRoles={["DO", "CO", "HR"]}><NewEmployeeOnboarding hideSalary={true} /></ProtectedRoute>} />
+
+          {/* 🔹 GENERIC CATCH-ALL (Must be last) */}
+          <Route path="/scopes/employee/*" element={<ProtectedRoute allowedRoles={["DO", "CO", "HR"]}><EmployeeOnBoardingContainer role="DO" /></ProtectedRoute>} />
 
         </Routes>
       </main>
@@ -253,7 +111,6 @@ function AppWrapper() {
   );
 }
 
-// --- Root App Wrapper with React Query ---
 function App() {
   return (
     <QueryClientProvider client={queryClient}>

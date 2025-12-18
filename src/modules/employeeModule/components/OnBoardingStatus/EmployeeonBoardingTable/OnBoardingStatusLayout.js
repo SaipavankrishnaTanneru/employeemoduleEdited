@@ -1,47 +1,50 @@
-import React, { useState, useRef, useEffect, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import styles from "./OnBoardingStatusLayout.module.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import leftarrow from 'assets/onboarding_status_table/leftarrow.svg';
-import filtericon from 'assets/onboarding_status_table/filtericon.svg';
-import plusIcon from 'assets/onboarding_status_table/PlusIconForOnboardNewEmployee.svg';
+import leftarrow from "assets/onboarding_status_table/leftarrow.svg";
+import filtericon from "assets/onboarding_status_table/filtericon.svg";
+import plusIcon from "assets/onboarding_status_table/PlusIconForOnboardNewEmployee.svg";
 
-import SearchBox from 'widgets/Searchbox/Searchbox';
-import { searchicon } from 'assets/onboarding_status_table/searchicon';
+import SearchBox from "widgets/Searchbox/Searchbox";
+import { searchicon } from "assets/onboarding_status_table/searchicon";
 
 import OnBoardingStatusTable from "./OnBoardingStatusTable";
 import SkillTestApprovalTable from "../EmployeeonBoardingTable/SkillTestApproval/SkillTestApprovalTable";
 
-import Button from 'widgets/Button/Button';
-import GenericNavTabs from 'widgets/NavTabs/GenericNavTabs';
+import Button from "widgets/Button/Button";
+import GenericNavTabs from "widgets/NavTabs/GenericNavTabs";
 import StatusFilterPopup from "../../OnBoardingStatus/EmployeeonBoardingTable/StatusFilterPopup/StatusFilterPopup";
 
 const OnBoardingStatusLayout = ({ role, onEmployeeSelect }) => {
-  // ====== Role-based filter defaults ======
+  /* ---------------- Role-based filter ---------------- */
   const { filterOptions } = useMemo(() => {
-    const options = [
-      "Completed",
-      "Incomplete",
-      "Pending With CO",
-      "Pending With DO",
-      "Skill Test Approval",
-      "Skill Test Approved",
-      "Rejected",
-      "Left"
-    ];
-    return { filterOptions: options };
+    return {
+      filterOptions: [
+        "Completed",
+        "Incomplete",
+        "Pending With CO",
+        "Pending With DO",
+        "Skill Test Approval",
+        "Skill Test Approved",
+        "Rejected",
+        "Left",
+      ],
+    };
   }, [role]);
 
-  // ====== State ======
+  /* ---------------- State ---------------- */
   const location = useLocation();
+  const navigate = useNavigate();
+
   const [searchValue, setSearchValue] = useState("");
   const [showFilter, setShowFilter] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState("");
 
-  // Get base path by removing any existing tab segments
+  /* ---------------- Base Path ---------------- */
   const getBasePath = () => {
     let basePath = location.pathname;
-    const tabSegments = ['/onboarding', '/skillTest'];
+    const tabSegments = ["/onboarding", "/skillTest"];
 
     for (const segment of tabSegments) {
       if (basePath.endsWith(segment)) {
@@ -54,35 +57,34 @@ const OnBoardingStatusLayout = ({ role, onEmployeeSelect }) => {
 
   const basePath = getBasePath();
 
-  // Determine active tab from pathname
-  const getActiveTabFromPath = () => {
-    const pathname = location.pathname;
-
-    if (pathname.endsWith('/skillTest')) {
-      return 'skillTest';
-    } else if (pathname.endsWith('/onboarding')) {
-      return 'onboarding';
+  /* ---------------- Default Tab Redirect ---------------- */
+  useEffect(() => {
+    if (
+      location.pathname === basePath ||
+      location.pathname === `${basePath}/`
+    ) {
+      navigate(`${basePath}/onboarding`, { replace: true });
     }
-    return 'onboarding'; // default
-  };
+  }, [location.pathname, basePath, navigate]);
 
-  const activeTab = getActiveTabFromPath();
+  /* ---------------- Active Tab ---------------- */
+  const activeTab = location.pathname.endsWith("/skillTest")
+    ? "skillTest"
+    : "onboarding";
 
-  // ====== Handlers ======
+  /* ---------------- Handlers ---------------- */
   const handleStatusChange = (status) => {
     setSelectedStatus(status);
     setShowFilter(false);
   };
 
   const handleClearFilter = () => setSelectedStatus("");
-
-  const handleSearchChange = (newValue) => setSearchValue(newValue);
-
+  const handleSearchChange = (value) => setSearchValue(value);
   const handleFilterClose = () => setShowFilter(false);
 
   return (
     <div className={styles.container}>
-      {/* 🔹 Header Section */}
+      {/* Header */}
       <div className={styles.header}>
         <figure>
           <img src={leftarrow} alt="Back" className={styles.arrowIcon} />
@@ -97,19 +99,19 @@ const OnBoardingStatusLayout = ({ role, onEmployeeSelect }) => {
         />
       </div>
 
-      {/* 🔹 Segmented Tabs */}
+      {/* Tabs */}
       <div className={styles.tabsContainer}>
         <GenericNavTabs
+          activeTab={activeTab}
           tabs={[
-            { id: 1, label: "Onboarding Status", path: basePath + "/onboarding" },
-            { id: 2, label: "Skill Test Approval", path: basePath + "/skillTest" },
+            { id: 1, label: "Onboarding Status", path: `${basePath}/onboarding` },
+            { id: 2, label: "Skill Test Approval", path: `${basePath}/skillTest` },
           ]}
         />
       </div>
 
-      {/* 🔹 Search + Filter Row */}
+      {/* Search + Filter */}
       <div className={styles.filterRow}>
-        {/* Selected Filter Badge */}
         <div>
           {selectedStatus && (
             <div
@@ -143,7 +145,6 @@ const OnBoardingStatusLayout = ({ role, onEmployeeSelect }) => {
           )}
         </div>
 
-        {/* Right side: Search + Filter */}
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           <div className={styles.searchWrapper}>
             <SearchBox
@@ -154,29 +155,27 @@ const OnBoardingStatusLayout = ({ role, onEmployeeSelect }) => {
             />
           </div>
 
-          {/* Filter Icon */}
           <figure
             className={styles.filterFigure}
             onClick={() => setShowFilter((prev) => !prev)}
           >
             <img src={filtericon} alt="Filter" className={styles.filterIcon} />
             <figcaption>Status</figcaption>
-            {selectedStatus && <span className={styles.redDot}></span>}
+            {selectedStatus && <span className={styles.redDot} />}
           </figure>
 
-          {/* Popup */}
           <StatusFilterPopup
             open={showFilter}
             filterOptions={filterOptions}
             selectedStatus={selectedStatus}
             onStatusChange={handleStatusChange}
-            onClose={handleFilterClose}
             onApply={handleStatusChange}
+            onClose={handleFilterClose}
           />
         </div>
       </div>
 
-      {/* 🔹 Table Section — SWITCH BASED ON ACTIVE TAB */}
+      {/* Tables */}
       {activeTab === "skillTest" ? (
         <SkillTestApprovalTable
           selectedStatus={selectedStatus}

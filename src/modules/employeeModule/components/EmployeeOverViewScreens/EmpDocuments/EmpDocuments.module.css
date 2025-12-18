@@ -1,5 +1,14 @@
+.documentsTabContainer{
+    display: flex;
+    flex-direction: row;   /* ✅ important */
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+
 .documentsTabLeftSide{
-    width: 70%;
+    width: 75%;
     /* padding: 10px; */
     display: flex;
     flex-direction: column;
@@ -9,7 +18,7 @@
 }
 
 .documentsTabRightSide{
-    width: 30%;
+    width: 25%;
     background-color: white;
     border-radius: 6px;
     padding: 16px 15px;

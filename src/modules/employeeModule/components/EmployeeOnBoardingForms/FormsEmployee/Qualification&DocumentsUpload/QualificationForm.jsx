@@ -56,7 +56,9 @@ const QualificationForm = () => {
       <Formik
         initialValues={{ qualifications: [initialQualification] }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {}}
+        onSubmit={(values) => {
+           console.log("Submitted", values);
+        }}
       >
         {({ values, setFieldValue }) => (
           <Form>
@@ -77,8 +79,8 @@ const QualificationForm = () => {
                       index={index}
                       title={`Qualification ${index + 1}`}
                       enableFieldset={true}
-                       forceFieldset = {false}
-                       showSimpleTitle = {false}
+                      forceFieldset={false}
+                      showSimpleTitle={false}
                       onClear={() => {
                         // Reset all fields in this index
                         Object.entries(initialQualification).forEach(([key, v]) => {
@@ -90,48 +92,74 @@ const QualificationForm = () => {
                       {/* ---------------- FIELD GRID ---------------- */}
                       <div className={styles.formGrid}>
                         
-                        <Field
-                          name={`qualifications.${index}.qualification`}
-                          component={FormikDropdown}
-                          dropdownname="Qualification"
-                          results={qualificationOptions}
-                        />
+                        {/* 1. Qualification Dropdown */}
+                        <Field name={`qualifications.${index}.qualification`}>
+                            {({ field, form }) => (
+                                <FormikDropdown 
+                                    field={field} // Passed as object
+                                    form={form}   // Passed as object
+                                    dropdownname="Qualification" 
+                                    results={qualificationOptions} 
+                                />
+                            )}
+                        </Field>
 
-                        <Field
-                          name={`qualifications.${index}.degree`}
-                          component={FormikDropdown}
-                          dropdownname="Degree"
-                          results={degreeOptions}
-                        />
+                        {/* 2. Degree Dropdown */}
+                        <Field name={`qualifications.${index}.degree`}>
+                             {({ field, form }) => (
+                                <FormikDropdown 
+                                    field={field} // Passed as object
+                                    form={form}   // Passed as object
+                                    dropdownname="Degree" 
+                                    results={degreeOptions} 
+                                />
+                            )}
+                        </Field>
 
-                        <Field
-                          name={`qualifications.${index}.specialization`}
-                          component={Inputbox}
-                          label="Specialization"
-                          placeholder="Enter Specialization"
-                        />
+                        {/* 3. Specialization Input */}
+                        <Field name={`qualifications.${index}.specialization`}>
+                            {({ field }) => (
+                                <Inputbox 
+                                    {...field} // Passed spread (name, value, onChange)
+                                    label="Specialization" 
+                                    placeholder="Enter Specialization" 
+                                />
+                            )}
+                        </Field>
 
-                        <Field
-                          name={`qualifications.${index}.university`}
-                          component={Inputbox}
-                          label="University"
-                          placeholder="Enter University"
-                        />
+                        {/* 4. University Input */}
+                        <Field name={`qualifications.${index}.university`}>
+                            {({ field }) => (
+                                <Inputbox 
+                                    {...field} 
+                                    label="University" 
+                                    placeholder="Enter University" 
+                                />
+                            )}
+                        </Field>
 
-                        <Field
-                          name={`qualifications.${index}.institute`}
-                          component={Inputbox}
-                          label="Institute"
-                          placeholder="Enter Institute"
-                        />
+                        {/* 5. Institute Input */}
+                        <Field name={`qualifications.${index}.institute`}>
+                            {({ field }) => (
+                                <Inputbox 
+                                    {...field} 
+                                    label="Institute" 
+                                    placeholder="Enter Institute" 
+                                />
+                            )}
+                        </Field>
 
-                        <Field
-                          name={`qualifications.${index}.year`}
-                          component={Inputbox}
-                          type="number"
-                          label="Passed out Year"
-                          placeholder="Enter Year"
-                        />
+                        {/* 6. Year Input */}
+                        <Field name={`qualifications.${index}.year`}>
+                            {({ field }) => (
+                                <Inputbox 
+                                    {...field} 
+                                    type="number"
+                                    label="Passed out Year" 
+                                    placeholder="Enter Year" 
+                                />
+                            )}
+                        </Field>
 
                         {/* -------- File Upload -------- */}
                         <div className={styles.formGroup}>

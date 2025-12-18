@@ -1,4 +1,4 @@
-/* ---------------- SIMPLE BLOCK (Cheque 1) ---------------- */
+/* ---------------- SIMPLE BLOCK ---------------- */
 .simpleBlock {
   padding: 8px 0 20px 0;
 }
@@ -21,36 +21,46 @@
   width: 100%;
 }
 
-/* ---------------- FIELDSET BLOCK (Cheque 2+) ---------------- */
+/* ---------------- FIELDSET BLOCK (Modified) ---------------- */
 .fieldsetBox {
-  padding: 15px;
+  /* Use relative positioning so we can place the header on the border */
+  position: relative;
+  padding: 25px 15px 15px 15px; /* Increase top padding to clear the header */
   border-radius: 12px;
-  border: 1px solid #e6e6e6;
+  border: 1px solid #e6e6e6; /* The continuous border line */
   background: #fff;
-  margin-bottom: 20px;
+  margin-bottom: 30px; /* Add margin so the floating header doesn't hit element above */
+  margin-top: 15px;
 }
 
+/* Replaces the <legend> */
 .legendWrapper {
+  position: absolute;
+  top: -14px; /* Pulls the wrapper up to sit on the border line */
+  left: 0;
   width: 100%;
+  pointer-events: none; /* Allows clicking through the empty space if needed */
 }
 
 .legendRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 15px; /* Indent from the left/right edges */
 }
 
 .legendTag {
   border-radius: 23px;
   padding: 4px 12px;
   border: 1px solid #bfbfbf;
-
   font-size: 12px;
   cursor: pointer;
-;
-    color: #787800;
-    background: #FFFED8;
-    cursor: pointer;
+  color: #787800;
+  background: #FFFED8;
+  pointer-events: auto; /* Re-enable clicks for the button */
+  
+  /* Critical: This ensures the border line behind the tag is hidden */
+  z-index: 1; 
 }
 
 .activeTag {
@@ -63,6 +73,11 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  /* Add a background to mask the line behind the buttons if necessary, 
+     or rely on the buttons' own backgrounds */
+  background: #fff; 
+  padding-left: 5px; /* Small buffer around the buttons */
+  pointer-events: auto; /* Re-enable clicks */
 }
 
 .legendCross {
@@ -72,5 +87,5 @@
 }
 
 .fieldsetContent {
-  margin-top: 12px;
+  width: 100%;
 }

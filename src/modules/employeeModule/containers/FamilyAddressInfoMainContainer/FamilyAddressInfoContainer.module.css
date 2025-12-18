@@ -12,6 +12,7 @@
     width: 72%;
     background-color: white;
     padding: 10px;
+      border-radius: 8px;
 
 }
 .family_address_right_component{
@@ -20,5 +21,6 @@
     background-color: white;
     padding: 15px;
     backdrop-filter: blur(2.3499999046325684px);
+    border-radius: 8px;
 
 }

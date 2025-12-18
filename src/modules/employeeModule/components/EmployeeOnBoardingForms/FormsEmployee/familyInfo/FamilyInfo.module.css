@@ -1,12 +1,12 @@
 /* MAIN CONTAINER */
 .container {
-
+ 
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 10px;
   background: #fff;
 }
-
+ 
 /* SECTION TITLE (Father / Mother) */
 .sectionTitle {
   display: flex;
@@ -17,7 +17,7 @@
   color: #82808F;
   margin-top: 10px;
 }
-
+ 
 /* "Is in Organization?" Row */
 .orgRow {
   display: flex;
@@ -26,26 +26,27 @@
   margin-top: -10px;
   margin-bottom: -5px;
 }
-
+ 
 .orgLabel {
   font-size: 14px;
   color: #82808F;
+  line-height: 1.5;
 }
-
+ 
 /* 3 COLUMN GRID (Matches Parent) */
 .row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;          /* Matches father/mother spacing */
 }
-
+ 
 /* BLOCK WRAPPER FOR DYNAMIC MEMBER UI */
 .sectionBlock {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-
+ 
 /* UPLOAD PHOTO */
 .uploadWrapper {
   display: flex;
@@ -54,12 +55,12 @@
   margin-top: -5px;
   gap: 8px;
 }
-
+ 
 .uploadLabel {
   font-size: 13px;
   color: #82808F;
 }
-
+ 
 .uploadButton {
   display: inline-flex;
   align-items: center;
@@ -72,12 +73,12 @@
   font-weight: 500;
   cursor: pointer;
 }
-
+ 
 /* ADD MEMBER */
 .addFamilyWrapper {
   text-align: center;
 }
-
+ 
 .addFamilyBtn {
   background: none;
   color: #4c4cff;
@@ -86,3 +87,16 @@
   font-weight: 500;
   font-size: 14px;
 }
+ 
+.checkbox_section {
+  margin-bottom: 10px;
+}
+ 
+.checkbox_wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+ 
+ 

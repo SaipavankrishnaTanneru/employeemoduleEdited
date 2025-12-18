@@ -4,6 +4,7 @@ import * as Yup from "yup";
 
 import styles from "./PreviousEmployeeInfo.module.css";
 
+// Assuming these are your components
 import Inputbox from "widgets/Inputbox/InputBox";
 import FormikDropdown from "widgets/Dropdown/Dropdown";
 import AddFieldWidget from "widgets/AddFieldWidget/AddFieldWidget";
@@ -43,7 +44,9 @@ const PreviousEmployerDetails = () => {
       <Formik
         initialValues={{ previousEmployers: [initialEmployer] }}
         validationSchema={validationSchema}
-        onSubmit={() => {}}
+        onSubmit={(values) => {
+          console.log("Submitted:", values);
+        }}
       >
         {({ values, setFieldValue }) => (
           <Form>
@@ -73,77 +76,120 @@ const PreviousEmployerDetails = () => {
                       {/* FORM GRID */}
                       <div className={styles.formGrid}>
 
-                        <Field
-                          name={`previousEmployers.${index}.companyName`}
-                          component={Inputbox}
-                          label="Company Name"
-                          placeholder="Enter Full Name"
-                        />
+                        {/* 1. Company Name */}
+                        <Field name={`previousEmployers.${index}.companyName`}>
+                          {({ field }) => (
+                            <Inputbox
+                              {...field}
+                              label="Company Name"
+                              placeholder="Enter Full Name"
+                            />
+                          )}
+                        </Field>
 
-                        <Field
-                          name={`previousEmployers.${index}.designation`}
-                          component={Inputbox}
-                          label="Designation"
-                          placeholder="Enter Designation"
-                        />
+                        {/* 2. Designation */}
+                        <Field name={`previousEmployers.${index}.designation`}>
+                          {({ field }) => (
+                            <Inputbox
+                              {...field}
+                              label="Designation"
+                              placeholder="Enter Designation"
+                            />
+                          )}
+                        </Field>
 
-                        <Field
-                          name={`previousEmployers.${index}.fromDate`}
-                          component={FormikDropdown}
-                          dropdownname="From"
-                          results={fromOptions}
-                        />
+                        {/* 3. From Date */}
+                        <Field name={`previousEmployers.${index}.fromDate`}>
+                            {/* Pass 'form' in case Dropdown needs setFieldValue */}
+                           {({ field, form }) => (
+                            <FormikDropdown
+                              {...field}
+                              form={form} 
+                              dropdownname="From"
+                              results={fromOptions}
+                            />
+                          )}
+                        </Field>
 
                         {/* Row 2 */}
-                        <Field
-                          name={`previousEmployers.${index}.toDate`}
-                          component={FormikDropdown}
-                          dropdownname="To"
-                          results={toOptions}
-                        />
+                        {/* 4. To Date */}
+                        <Field name={`previousEmployers.${index}.toDate`}>
+                           {({ field, form }) => (
+                            <FormikDropdown
+                              {...field}
+                              form={form}
+                              dropdownname="To"
+                              results={toOptions}
+                            />
+                          )}
+                        </Field>
 
-                        <Field
-                          name={`previousEmployers.${index}.leavingReason`}
-                          component={Inputbox}
-                          label="Leaving Reason"
-                          placeholder="Enter Reason"
-                        />
+                        {/* 5. Leaving Reason */}
+                        <Field name={`previousEmployers.${index}.leavingReason`}>
+                          {({ field }) => (
+                            <Inputbox
+                              {...field}
+                              label="Leaving Reason"
+                              placeholder="Enter Reason"
+                            />
+                          )}
+                        </Field>
 
-                        <Field
-                          name={`previousEmployers.${index}.companyAddressLine1`}
-                          component={Inputbox}
-                          label="Company Address Line 1"
-                          placeholder="Enter Address"
-                        />
+                        {/* 6. Address Line 1 */}
+                        <Field name={`previousEmployers.${index}.companyAddressLine1`}>
+                          {({ field }) => (
+                            <Inputbox
+                              {...field}
+                              label="Company Address Line 1"
+                              placeholder="Enter Address"
+                            />
+                          )}
+                        </Field>
 
                         {/* Row 3 */}
-                        <Field
-                          name={`previousEmployers.${index}.companyAddressLine2`}
-                          component={Inputbox}
-                          label="Company Address Line 2"
-                          placeholder="Enter Address"
-                        />
+                        {/* 7. Address Line 2 */}
+                        <Field name={`previousEmployers.${index}.companyAddressLine2`}>
+                          {({ field }) => (
+                            <Inputbox
+                              {...field}
+                              label="Company Address Line 2"
+                              placeholder="Enter Address"
+                            />
+                          )}
+                        </Field>
 
-                        <Field
-                          name={`previousEmployers}.${index}.natureOfDuties`}
-                          component={Inputbox}
-                          label="Nature of Duties"
-                          placeholder="Enter Duties"
-                        />
+                        {/* 8. Nature of Duties - FIXED TYPO HERE */}
+                        <Field name={`previousEmployers.${index}.natureOfDuties`}>
+                          {({ field }) => (
+                            <Inputbox
+                              {...field}
+                              label="Nature of Duties"
+                              placeholder="Enter Duties"
+                            />
+                          )}
+                        </Field>
 
-                        <Field
-                          name={`previousEmployers.${index}.grossSalaryPerMonth`}
-                          component={Inputbox}
-                          label="Gross Salary (Monthly)"
-                          placeholder="Enter Salary"
-                        />
+                        {/* 9. Gross Salary */}
+                        <Field name={`previousEmployers.${index}.grossSalaryPerMonth`}>
+                          {({ field }) => (
+                            <Inputbox
+                              {...field}
+                              label="Gross Salary (Monthly)"
+                              placeholder="Enter Salary"
+                            />
+                          )}
+                        </Field>
 
-                        <Field
-                          name={`previousEmployers.${index}.ctc`}
-                          component={Inputbox}
-                          label="CTC"
-                          placeholder="Enter CTC"
-                        />
+                        {/* 10. CTC */}
+                        <Field name={`previousEmployers.${index}.ctc`}>
+                          {({ field }) => (
+                            <Inputbox
+                              {...field}
+                              label="CTC"
+                              placeholder="Enter CTC"
+                            />
+                          )}
+                        </Field>
                       </div>
                     </AddFieldWidget>
                   ))}

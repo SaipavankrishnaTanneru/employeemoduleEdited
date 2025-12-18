@@ -2,10 +2,23 @@ import React from "react";
 import Lottie from "lottie-react";
 import styles from "./SuccessPage.module.css";
 import successAnimationData from 'assets/SkillTest/success-animation.json';
-import rightarrow from 'assets/EmployeeOnBoarding/rightarrow.svg';
+
+// 1. Allow the icon to accept props (like className)
+const RightArrowIcon = (props) => (
+  <svg 
+    {...props} // This spreads className and other props onto the svg
+    width="24" 
+    height="24" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M5 11C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13V12V11ZM20.7071 12.7071C21.0976 12.3166 21.0976 11.6834 20.7071 11.2929L14.3431 4.92893C13.9526 4.53841 13.3195 4.53841 12.9289 4.92893C12.5384 5.31946 12.5384 5.95262 12.9289 6.34315L18.5858 12L12.9289 17.6569C12.5384 18.0474 12.5384 18.6805 12.9289 19.0711C13.3195 19.4616 13.9526 19.4616 14.3431 19.0711L20.7071 12.7071ZM5 12V13H20V12V11H5V12Z" fill="white"/>
+  </svg>
+);
 
 const SuccessPage = ({
-  mode = "modal", // "modal" | "page"
+  mode = "modal",
   title = "Temp Id Generated Successfully",
   onClose,
   onProceed,
@@ -23,15 +36,15 @@ const SuccessPage = ({
 
         <h2 className={styles.successText}>{title}</h2>
 
-        {/* Buttons only in modal mode */}
         {isModal && showButtons && (
           <div className={styles.buttonRow}>
             <button className={styles.closeBtn} onClick={onClose}>
               Close
             </button>
-               <button className={styles.proceedBtn} onClick={onProceed}>
+            <button className={styles.proceedBtn} onClick={onProceed}>
               <span>{proceedLabel}</span>
-              <img src={rightarrow} alt="arrow" className={styles.arrowIcon} />
+              {/* 2. Render the component directly, NOT inside an img tag */}
+              <RightArrowIcon className={styles.arrowIcon} />
             </button>
           </div>
         )}

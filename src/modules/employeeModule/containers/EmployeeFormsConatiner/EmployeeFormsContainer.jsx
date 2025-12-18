@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import {
   Routes,
   Route,
   Navigate,
   useNavigate,
-  useMatch,
   useLocation,
 } from "react-router-dom";
 
 import EmployeeOnboardingHeader from "../../components/EmployeeModuleHeaderComponent/EmployeeOnboardingHeader";
 import EmployeeNavTabOnBoarding from "../../components/EmployeeOnBoardingForms/EmployeeOnBoardingFormNav/EmployeeNavtab";
-
 import { onboardingSteps } from "../../config/onboardingTabs";
-import { useAuth } from 'useAuth';
+import { useAuth } from 'useAuth'; 
+
+// --- Form Components ---
 import QualificationForm from "../../components/EmployeeOnBoardingForms/FormsEmployee/Qualification&DocumentsUpload/QualificationForm";
 import UploadDocumentsForm from "../../components/EmployeeOnBoardingForms/FormsEmployee/Qualification&DocumentsUpload/UploadDocumentsForm";
 import BasicInfo from "../../components/EmployeeOnBoardingForms/FormsEmployee/BasicInfoForms/EmployeeOnboardingForm";
@@ -26,71 +26,94 @@ import SalaryInfoForm from "../../components/EmployeeOnBoardingForms/FormsEmploy
 
 import SuccessPage from "../../components/SuccessPage/SuccessPage";
 import OnboardingFooter from "../../components/OnBoardingStatus/OnBoardingEmployeeFooter/OnboardingFooter";
-
 import styles from "./EmployeeFormsContainer.module.css";
 
-const NewEmployeeOnboardingForms = () => {
+const NewEmployeeOnboardingForms = ({ hideSalary = false }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useAuth();
 
   const role = user?.roles?.[0];
   const isHR = role === "HR";
-
-  // Base Path
-  const basePath = location.pathname.includes("/hr/")
-    ? "/scopes/employee/hr/new-employee-onboarding"
-    : "/scopes/employee/new-employee-onboarding";
-
-  const match = useMatch(`${basePath}/:tab`);
-  const currentTab = match?.params?.tab;
-
   const [showSuccess, setShowSuccess] = useState(false);
 
-  // Determine active step
-  let currentStep = onboardingSteps.findIndex((s) => s.path === currentTab);
-  if (currentStep === -1) currentStep = 0;
-
-  const totalSteps = onboardingSteps.length;
-
-  // Navigation
-  const goNext = () => {
-    if (currentStep < totalSteps - 1) {
-      navigate(`${basePath}/${onboardingSteps[currentStep + 1].path}`);
+  // -------------------------------------------------------------
+  // 1. Filter Steps Logic (Memoized)
+  // -------------------------------------------------------------
+  // If hideSalary is true, we filter out the 'salary-info' step completely.
+  const activeSteps = useMemo(() => {
+    if (hideSalary) {
+      return onboardingSteps.filter((step) => step.path !== 'salary-info');
     }
-  };
+    return onboardingSteps;
+  }, [hideSalary]);
 
+  // -------------------------------------------------------------
+  // 2. Dynamic Base Path Logic
+  // -------------------------------------------------------------
+  const pathParts = location.pathname.replace(/\/$/, "").split('/');
+  const lastSegment = pathParts[pathParts.length - 1];
+  
+  // We check against activeSteps to see if we are currently on a valid tab
+  const isCurrentPathATab = activeSteps.some(step => step.path === lastSegment);
+
+  let basePath = location.pathname;
+  if (isCurrentPathATab) {
+    // If we are on a tab, strip the tab name to get the true base path
+    basePath = pathParts.slice(0, -1).join('/');
+  }
+  // Ensure no trailing slash
+  basePath = basePath.replace(/\/$/, "");
+
+  // -------------------------------------------------------------
+  // 3. Determine Active Step REACTIVELY
+  // -------------------------------------------------------------
+  // Find index in the filtered activeSteps array
+  let currentStep = activeSteps.findIndex((s) => s.path === lastSegment);
+  
+  // If no tab matches (e.g. root path), default to 0
+  if (currentStep === -1) currentStep = 0;
+  
+  const totalSteps = activeSteps.length;
+
+  // -------------------------------------------------------------
+  // 4. Handlers
+  // -------------------------------------------------------------
   const goBack = () => {
     if (currentStep > 0) {
-      navigate(`${basePath}/${onboardingSteps[currentStep - 1].path}`);
+      // Go to previous step in the active list
+      navigate(`${basePath}/${activeSteps[currentStep - 1].path}`);
     } else {
       navigate(-1);
     }
   };
 
-  // Custom Step Logic
   const handleNextStep = async (step) => {
     try {
-     if (step === 0) {
-  setShowSuccess(true); // show instantly
-  return;
-}
-
-      // Last step→Forward
+      // Step 0: Show success modal
+      if (step === 0) {
+        setShowSuccess(true);
+        return; 
+      }
+      
+      // Last Step: Forward to DO and Redirect
       if (step === totalSteps - 1) {
-        // TODO: Replace with a non-blocking notification system (e.g., toast)
-        window.dispatchEvent(new CustomEvent('notify', { detail: { type: 'success', message: 'Employee forwarded to Divisional Officer successfully!' } }));
+        window.dispatchEvent(new CustomEvent('notify', { 
+            detail: { type: 'success', message: 'Employee forwarded to Divisional Officer successfully!' } 
+        }));
+        
+        // --- REDIRECTION LOGIC ---
+        navigate('/scopes/employee/status/onboarding');
         return;
       }
 
-      goNext();
+      // Normal Navigation: Go to next step in active list
+      navigate(`${basePath}/${activeSteps[currentStep + 1].path}`);
     } catch (error) {
-
       window.dispatchEvent(new CustomEvent('notify', { detail: { type: 'error', message: 'An error occurred. Please try again.' } }));
     }
   };
 
-  
   return (
     <div className={`${styles.mainContainer} ${isHR ? styles.hrContainer : ""}`}>
       {/* HEADER */}
@@ -99,30 +122,25 @@ const NewEmployeeOnboardingForms = () => {
           step={currentStep + 1}
           totalSteps={totalSteps}
           onBack={goBack}
-          mainTitle={
-            isHR
-              ? "HR Employee Onboarding Management"
-              : "New Employee Onboarding"
-          }
-          subHeading=""
+          mainTitle={isHR ? "HR Employee Onboarding Management" : "New Employee Onboarding"}
+          subHeading={hideSalary ? "" : ""}
         />
       </div>
 
-      {/* HIDE TABS WHEN MODAL IS OPEN */}
       {!showSuccess && (
         <div className={styles.navTabsWrapper}>
-          <EmployeeNavTabOnBoarding basePath={basePath} />
+          {/* NOTE: Ensure EmployeeNavTabOnBoarding accepts the 'steps' prop! 
+            <EmployeeNavTabOnBoarding basePath={basePath} steps={activeSteps} />
+          */}
+          <EmployeeNavTabOnBoarding basePath={basePath} steps={activeSteps} />
         </div>
       )}
 
-      {/* CONTENT AREA (Blur only by overlay) */}
       <div className={styles.contentArea}>
         <Routes>
-          <Route
-            index
-            element={<Navigate to={onboardingSteps[0].path} replace />}
-          />
-
+          {/* Redirect root to basic-info */}
+          <Route index element={<Navigate to="basic-info" replace />} />
+          
           <Route path="basic-info" element={<BasicInfo />} />
           <Route path="address-info" element={<AddressInfoFormNew />} />
           <Route path="family-info" element={<FamilyInfo />} />
@@ -132,36 +150,47 @@ const NewEmployeeOnboardingForms = () => {
           <Route path="category-info" element={<CategoryInfo />} />
           <Route path="bank-info" element={<BankInfo />} />
           <Route path="agreements" element={<AgreementInfoForm />} />
-          <Route path="salary-info" element={<SalaryInfoForm />} />
+          
+          {/* Only render Salary Route if NOT hidden */}
+          {!hideSalary && (
+             <Route path="salary-info" element={<SalaryInfoForm />} />
+          )}
         </Routes>
       </div>
 
-      {/* FOOTER (Hide during modal) */}
       {!showSuccess && (
         <OnboardingFooter
           currentStep={currentStep}
           totalSteps={totalSteps}
-          allSteps={onboardingSteps}
+          allSteps={activeSteps}
           role={role}
           onNext={() => handleNextStep(currentStep)}
           onBack={goBack}
           hideSkip={true}
+          primaryButtonLabel={
+            currentStep === 0 
+              ? "Create Temp ID and Proceed" 
+              : currentStep === totalSteps - 1 
+              ? "Forward To Divisional Officer" 
+              : null
+          }
         />
       )}
 
-    {showSuccess && (
-  <SuccessPage
-    mode="modal"
-    title="Temp Id Generated Successfully"
-    onClose={() => setShowSuccess(false)}
-    onProceed={() => {
-      setShowSuccess(false);
-      navigate(`${basePath}/address-info`);
-    }}
-    proceedLabel="Proceed to Address Info"
-  />
-)}
-
+      {showSuccess && (
+        <SuccessPage
+          mode="modal"
+          title="Temp Id Generated Successfully"
+          onClose={() => setShowSuccess(false)}
+          onProceed={() => {
+            setShowSuccess(false);
+            // Calculate next path safely using activeSteps
+            const nextPath = activeSteps[currentStep + 1]?.path || 'address-info';
+            navigate(`${basePath}/${nextPath}`); 
+          }}
+          proceedLabel="Proceed to Address Info"
+        />
+      )}
     </div>
   );
 };

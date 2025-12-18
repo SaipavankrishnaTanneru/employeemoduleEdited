@@ -1,24 +1,26 @@
 .bank_details_info_container{
-
+ 
     width: 100%;
     display: flex;
-    gap: 15px;
+    gap: 10px;
     width: 100%;
     margin-top: 10px
-
+ 
 }
 .bank_details_left_component{
-
+ 
     width: 72%;
     background-color: white;
     padding: 10px;
-
+    border-radius: 8px;
 }
 .bank_details_right_component{
-
+ 
     width: 28%;
     background-color: white;
     padding: 15px;
     backdrop-filter: blur(2.3499999046325684px);
-
+    border-radius: 8px;
 }
+
+ 

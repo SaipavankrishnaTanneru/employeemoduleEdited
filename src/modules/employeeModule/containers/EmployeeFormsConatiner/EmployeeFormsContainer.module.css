@@ -32,8 +32,8 @@ width: 100%; /* Ensure it spans the full width */
 
   /* 🟢 Scroll only this section */
   overflow-y: auto;
-  scroll-behavior: smooth;
-  height: calc(100vh - 150px); /* header + tabs area */
+  /* scroll-behavior: smooth; */
+  height: calc(100vh - 150px);
   border-radius: 8px;
 }
 

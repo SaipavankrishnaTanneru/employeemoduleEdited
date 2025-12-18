@@ -5,12 +5,14 @@ import DocumentsRightSide from "./DocumentsRightSide";
 const EmpDocuments = ()=>{
     return(
         <>
+        <div className={styles.documentsTabContainer}>
         <div className={styles.documentsTabLeftSide}>
             <DocumentsLeftSide/>
         </div>
-        {/* <div className={styles.documentsTabRightSide}>
+        <div className={styles.documentsTabRightSide}>
             <DocumentsRightSide/>
-        </div> */}
+        </div>
+        </div>
         </>
     )
 }

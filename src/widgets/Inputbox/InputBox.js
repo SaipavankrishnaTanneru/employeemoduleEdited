@@ -5,26 +5,19 @@ import { validateAadhaar } from "utils/validateAadhaar";
 
 // ---------------------- REGEX PATTERNS ---------------------- //
 const patterns = {
-  alpha: /^[A-Za-z ]*$/, // alphabets + multiple spaces allowed
-  digits: /^[0-9]*$/, // only digits
+  alpha: /^[A-Za-z ]*$/,
+  digits: /^[0-9]*$/,
   alphanumeric: /^[A-Za-z0-9 ]*$/,
-
-  // LIVE TYPING FRIENDLY - one space between names
-  onlyLettersSingleSpace: /^$|^[A-Za-z]+(?: [A-Za-z]*)?$/, // only one space between words
-
-  // email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/,
+  onlyLettersSingleSpace: /^$|^[A-Za-z]+(?: [A-Za-z]*)?$/,
   email: /^$|^[A-Za-z0-9][A-Za-z0-9._%+-]*(@[A-Za-z0-9]*)?(\.[A-Za-z0-9]*)*$/,
-  aapar: /^(?![01])[0-9]{12}$/, // 12 digits, first digit not 0 or 1
-  aadhaar: /^$|^[2-9][0-9]{0,11}$/, // first digit 2-9
-
-  doorNo: /^$|^[A-Za-z0-9\/\-\$#\.]+$/, // door formats
-  area: /^$|^[A-Za-z0-9 ,]+$/, // alphanumeric + comma + space
-
-  digitsOnly: /^$|^[0-9]+$/, // strict digits only
-  noSpecialNoDigits: /^[A-Za-z]+(?: [A-Za-z]+)*$/, // names, no digits, no specials
-
-  address: /^[A-Za-z0-9\-\/#& ]*$/, // existing address rule
-  none: /.*/, // allow anything
+  aapar: /^(?![01])[0-9]{12}$/,
+  aadhaar: /^$|^[2-9][0-9]{0,11}$/,
+  doorNo: /^$|^[A-Za-z0-9\/\-\$#\.]+$/,
+  area: /^$|^[A-Za-z0-9 ,]+$/,
+  digitsOnly: /^$|^[0-9]+$/,
+  noSpecialNoDigits: /^[A-Za-z]+(?: [A-Za-z]+)*$/,
+  address: /^[A-Za-z0-9\-\/#& ]*$/,
+  none: /.*/,
   hallticket: /^[A-Za-z0-9]*$/,
 };
 
@@ -43,32 +36,25 @@ const Inputbox = ({
   required = false,
   error,
   readOnly = false,
+  rightIcon, // <--- 1. Add rightIcon to props
 }) => {
   const handleInput = (e) => {
     let val = e.target.value;
-
-    // pick pattern safely
     const regex = patterns[inputRule] || patterns.none;
 
-    // max length block
     if (maxLength && val.length > maxLength) return;
-
-    // block invalid characters
     if (!regex.test(val)) return;
 
-    // cleanup double spaces for alpha
     if (inputRule === "alpha") {
       val = val.replace(/\s\s+/g, " ");
     }
 
-    // auto-capitalize first letter
     if (autoCapitalize && val.length > 0) {
       val = val.charAt(0).toUpperCase() + val.slice(1);
     }
 
     if (inputRule === "aadhaar" && val.length === 12) {
       const isValid = validateAadhaar(val);
-
       if (!isValid) {
         onChange({
           target: { name, value: val },
@@ -88,18 +74,29 @@ const Inputbox = ({
         {required && <Asterisk style={{ marginLeft: "4px" }} />}
       </label>
 
-      <input
-        type={type}
-        id={id}
-        name={name}
-        placeholder={placeholder}
-        value={value}
-        onChange={readOnly ? undefined : handleInput}
-        className={styles.input_box}
-        disabled={disabled}
-        readOnly={readOnly}
-        maxLength={maxLength || undefined}
-      />
+      {/* 2. Create a Relative Wrapper for Input + Icon */}
+      <div className={styles.input_container_relative}>
+        <input
+          type={type}
+          id={id}
+          name={name}
+          placeholder={placeholder}
+          value={value}
+          onChange={readOnly ? undefined : handleInput}
+          // 3. Add conditional class if icon exists to add padding
+          className={`${styles.input_box} ${rightIcon ? styles.has_icon : ''}`} 
+          disabled={disabled}
+          readOnly={readOnly}
+          maxLength={maxLength || undefined}
+        />
+
+        {/* 4. Render the Icon */}
+        {rightIcon && (
+          <span className={styles.right_icon_wrapper}>
+            {rightIcon}
+          </span>
+        )}
+      </div>
 
       {error && <p className={styles.errormessage}>{error}</p>}
     </div>
