@@ -5,10 +5,10 @@
   bottom: 0;
   left: 18%;
   right: 10px;
-  padding: 22px 22px 20px 22px;
+  padding: 15px 40px;
   border: none;
   z-index: 499;
-  gap: 181px;
+
 
   /* ✅ UPDATED BACKGROUND */
   /* This creates a white tint that gets slightly more solid towards the bottom, 
@@ -35,7 +35,7 @@
   flex: 1;
   display: flex;
   justify-content: center;
-  gap:10px;
+  gap:12px;
 }
 
 .right {

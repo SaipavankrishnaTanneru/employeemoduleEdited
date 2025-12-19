@@ -9,14 +9,14 @@
 }
 .bank_details_left_component{
  
-    width: 72%;
+    width: 70%;
     background-color: white;
     padding: 10px;
     border-radius: 8px;
 }
 .bank_details_right_component{
  
-    width: 28%;
+    width: 30%;
     background-color: white;
     padding: 15px;
     backdrop-filter: blur(2.3499999046325684px);

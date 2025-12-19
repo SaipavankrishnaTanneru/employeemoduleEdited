@@ -1,10 +1,12 @@
 import Styles from "../EmployeeBasicInformation/EmployeeCurrenInfo.module.css";
+import dividerline from "../../../../../assets/EmployeeOnBoarding/dividerline.svg";
 const EmployeeCurrentInfo = () => {
     return (
         <div className={Styles.container}>
             <div className={Styles.header}>
                 <h3>Current Info</h3>
-                <hr />
+                <img src={dividerline} alt="divider"  />
+
             </div>
 
             <div className={Styles.infoGrid}>

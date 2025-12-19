@@ -1,4 +1,3 @@
-// OnBoardingEmployeeNav.js (Updated)
 import React, { useEffect, useState } from 'react';
 import Stepper from 'widgets/Stepper/Stepper';
 import navStyles from './OnBoardingEmployeeNav.module.css';
@@ -15,16 +14,15 @@ import PreviousEmployerInfo from '../EmployeeNavOverview/PreviousEmployerinfoCon
 import SalaryInfoReadOnly from '../EmployeeNavOverview/SalaryInfo';
 import AgreementInfoView from '../EmployeeNavOverview/AgreementInfoView';
 
-// --- (All your Icon components) ---
+// --- Icon components ---
 const IconSalary = () => (
- <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M5.5 9.16602H9.16667" stroke="black" stroke-width="1.375" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M19.0969 10.084H16.7118C15.0755 10.084 13.75 11.3151 13.75 12.834C13.75 14.3529 15.0764 15.584 16.7108 15.584H19.0969C19.1739 15.584 19.2115 15.584 19.2436 15.5822C19.7386 15.5519 20.1327 15.1862 20.1648 14.7269C20.1667 14.6976 20.1667 14.6618 20.1667 14.5912V11.0767C20.1667 11.0062 20.1667 10.9704 20.1648 10.9411C20.1318 10.4818 19.7386 10.1161 19.2436 10.0858C19.2115 10.084 19.1739 10.084 19.0969 10.084Z" stroke="currentColor" stroke-width="1.375"/>
-<path d="M19.2186 10.0833C19.1471 8.36733 18.9179 7.315 18.1763 6.57433C17.1029 5.5 15.3741 5.5 11.9173 5.5H9.16732C5.71057 5.5 3.98173 5.5 2.90832 6.57433C1.8349 7.64867 1.83398 9.37658 1.83398 12.8333C1.83398 16.2901 1.83398 18.0189 2.90832 19.0923C3.98265 20.1657 5.71057 20.1667 9.16732 20.1667H11.9173C15.3741 20.1667 17.1029 20.1667 18.1763 19.0923C18.9179 18.3517 19.148 17.2993 19.2186 15.5833" stroke="currentColor" stroke-width="1.375"/>
-<path d="M5.5 5.49995L8.92375 3.22937C9.40536 2.91651 9.96736 2.75 10.5417 2.75C11.116 2.75 11.678 2.91651 12.1596 3.22937L15.5833 5.49995" stroke="currentColor" stroke-width="1.375" stroke-linecap="round"/>
-<path d="M16.4922 12.834H16.5022" stroke="currentColor" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-
+  <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M5.5 9.16602H9.16667" stroke="black" strokeWidth="1.375" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M19.0969 10.084H16.7118C15.0755 10.084 13.75 11.3151 13.75 12.834C13.75 14.3529 15.0764 15.584 16.7108 15.584H19.0969C19.1739 15.584 19.2115 15.584 19.2436 15.5822C19.7386 15.5519 20.1327 15.1862 20.1648 14.7269C20.1667 14.6976 20.1667 14.6618 20.1667 14.5912V11.0767C20.1667 11.0062 20.1667 10.9704 20.1648 10.9411C20.1318 10.4818 19.7386 10.1161 19.2436 10.0858C19.2115 10.084 19.1739 10.084 19.0969 10.084Z" stroke="currentColor" strokeWidth="1.375"/>
+    <path d="M19.2186 10.0833C19.1471 8.36733 18.9179 7.315 18.1763 6.57433C17.1029 5.5 15.3741 5.5 11.9173 5.5H9.16732C5.71057 5.5 3.98173 5.5 2.90832 6.57433C1.8349 7.64867 1.83398 9.37658 1.83398 12.8333C1.83398 16.2901 1.83398 18.0189 2.90832 19.0923C3.98265 20.1657 5.71057 20.1667 9.16732 20.1667H11.9173C15.3741 20.1667 17.1029 20.1667 18.1763 19.0923C18.9179 18.3517 19.148 17.2993 19.2186 15.5833" stroke="currentColor" strokeWidth="1.375"/>
+    <path d="M5.5 5.49995L8.92375 3.22937C9.40536 2.91651 9.96736 2.75 10.5417 2.75C11.116 2.75 11.678 2.91651 12.1596 3.22937L15.5833 5.49995" stroke="currentColor" strokeWidth="1.375" strokeLinecap="round"/>
+    <path d="M16.4922 12.834H16.5022" stroke="currentColor" strokeWidth="1.83333" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
 );
 const SalaryInfoRead = () => (
   <div className='sale'>
@@ -44,44 +42,45 @@ const IconPersonal = () => (
     <path d="M6.41406 9.16602C7.93285 9.16602 9.16406 7.9348 9.16406 6.41602C9.16406 4.89723 7.93285 3.66602 6.41406 3.66602C4.89528 3.66602 3.66406 4.89723 3.66406 6.41602C3.66406 7.9348 4.89528 9.16602 6.41406 9.16602Z" stroke="currentColor" strokeWidth="1.38" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
-const IconContact = () => (<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M5.95573 8.25H5.03906M9.6224 8.25H8.70573M5.95573 5.5H5.03906M9.6224 5.5H8.70573M16.9557 13.75H16.0391M16.9557 10.0833H16.0391" stroke="currentColor" strokeWidth="1.375" strokeLinecap="round" />
-  <path d="M12.832 7.33398V20.1673H16.4987C18.2275 20.1673 19.091 20.1673 19.6282 19.6302C20.1654 19.093 20.1654 18.2295 20.1654 16.5007V11.0007C20.1654 9.27182 20.1654 8.40832 19.6282 7.87115C19.091 7.33398 18.2275 7.33398 16.4987 7.33398H1Two.jsZM12.832 7.33398C12.832 4.74165 12.832 3.44457 12.0263 2.63973C11.2214 1.83398 9.92436 1.83398 7.33203 1.83398C4.7397 1.83398 3.44261 1.83398 2.63778 2.63973C1.83203 3.44457 1.83203 4.74165 1.83203 7.33398V9.16732" stroke="currentColor" strokeWidth="1.375" strokeLinecap="round" strokeLinejoin="round" />
-  <path d="M7.35586 12.7933C7.36119 13.0374 7.3177 13.2802 7.22793 13.5073C7.13816 13.7344 7.00392 13.9413 6.83309 14.1158C6.66227 14.2903 6.4583 14.4289 6.23316 14.5235C6.00802 14.6181 5.76625 14.6668 5.52205 14.6667C5.27784 14.6665 5.03612 14.6176 4.81108 14.5228C4.58603 14.428 4.3822 14.2892 4.21155 14.1145C4.0409 13.9398 3.90687 13.7328 3.81732 13.5056C3.72778 13.2784 3.68453 13.0356 3.69011 12.7914C3.70106 12.3124 3.8991 11.8567 4.24183 11.5219C4.58456 11.1871 5.04475 10.9998 5.52388 11C6.00301 11.0002 6.46301 11.188 6.80541 11.5232C7.14781 11.8584 7.34539 12.3142 7.35586 12.7933ZM1.89711 18.527C2.86694 17.0347 4.40786 16.4755 5.52252 16.4764C6.63719 16.4774 8.13227 17.0347 9.10302 18.527C9.16536 18.6233 9.18277 18.7424 9.12594 18.8424C8.89952 19.2448 8.19461 20.0432 7.68677 20.0964C7.10102 20.1587 5.57202 20.1679 5.52344 20.1679C5.47486 20.1679 3.89819 20.1587 3.31427 20.0964C2.80461 20.0423 2.10061 19.2448 1.87327 18.8424C1.84777 18.7927 1.8365 18.737 1.8407 18.6813C1.84491 18.6257 1.86443 18.5723 1.89711 18.527Z" stroke="currentColor" strokeWidth="1.375" strokeLinecap="round" />
-</svg>
-);
-const IconEducation = () => (<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path fillRule="evenodd" clipRule="evenodd" d="M2.64506 6.56549C2.45219 6.65867 2.28911 6.8063 2.17488 6.99113C2.06066 7.17597 2 7.39037 2 7.6093C2 7.82822 2.06066 8.04262 2.17488 8.22746C2.28911 8.41229 2.45219 8.55992 2.64506 8.6531L4.25263 9.43249V13.9587C4.25263 14.8155 4.52355 15.7715 5.31384 16.3604C6.30986 17.0994 8.12427 18 11.0021 18C13.88 18 15.6899 17.0936 16.6904 16.3604C17.4807 15.7738 17.7517 14.8247 17.7517 13.9587V9.43249L18.8758 8.88634V13.9553C18.8758 14.1084 18.935 14.2552 19.0405 14.3635C19.1459 14.4718 19.2888 14.5326 19.4379 14.5326C19.587 14.5326 19.73 14.4718 19.8354 14.3635C19.9408 14.2552 20 14.1084 20 13.9553V7.60468C20 7.38601 19.9396 7.17182 19.8258 6.98703C19.712 6.80225 19.5494 6.65446 19.357 6.56087L12.9267 3.44332C12.3257 3.15141 11.6692 3 11.0044 3C10.3396 3 9.68305 3.15141 9.08206 3.44332L2.65181 6.56087L2.64506 6.56549ZM5.3768 13.9553V9.97171L9.07531 11.773C9.67631 12.0649 10.3328 12.2163 10.9976 12.2163C11.6624 12.2163 12.319 12.0649 12.92 11.773L16.6185 9.97171V13.9553C16.6185 14.5972 16.4161 15.1215 16.0227 15.4101C15.2088 16.014 13.6282 16.8419 10.9976 16.8419C8.36709 16.8419 6.78201 16.0198 5.97261 15.4101C5.58027 15.1191 5.3768 14.5915 5.3768 13.9553ZM9.55871 4.48712C10.0085 4.26829 10.5 4.15477 10.9976 4.15477C11.4953 4.15477 11.9868 4.26829 12.4366 4.48712L18.8668 7.60468L12.4366 10.7222C11.9868 10.9411 11.4953 11.0546 10.9976 11.0546C10.5 11.0546 10.0085 10.9411 9.55871 10.7222L3.12846 7.60468L9.55871 4.48712Z" fill="currentColor" />
-</svg>
-);
-const IconDocuments = () => (<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M6.81008 10.9993H12.0482M6.81008 13.0946H14.1434M6.81008 15.1898H9.95294M17.2863 16.2374V8.90411L12.0482 3.66602H6.81008C6.25439 3.66602 5.72146 3.88676 5.32852 4.2797C4.93559 4.67263 4.71484 5.20556 4.71484 5.76125V16.2374C4.71484 16.7931 4.93559 17.3261 5.32852 17.719C5.72146 18.1119 6.25439 18.3327 6.81008 18.3327H15.191C15.7467 18.3327 16.2797 18.1119 16.6726 17.719C17.0655 17.3261 17.2863 16.7931 17.2863 16.2374Z" stroke="currentColor" strokeWidth="1.38" strokeLinecap="round" strokeLinejoin="round" />
-  <path d="M12.0469 3.66602V6.80887C12.0469 7.36456 12.2676 7.8975 12.6606 8.29043C13.0535 8.68336 13.5864 8.90411 14.1421 8.90411H17.285" stroke="currentColor" strokeWidth="1.38" strokeLinecap="round" strokeLinejoin="round" />
-</svg>
-);
-const IconReview = () => (<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M15.5859 9.16602C17.1047 9.16602 18.3359 7.9348 18.3359 6.41602C18.3359 4.89723 17.1047 3.66602 15.5859 3.66602C14.0672 3.66602 12.8359 4.89723 12.8359 6.41602C12.8359 7.9348 14.0672 9.16602 15.5859 9.16602Z" stroke="currentColor" strokeWidth="1.38" strokeLinecap="round" strokeLinejoin="round" />
-  <path d="M6.41797 18.332C7.93675 18.332 9.16797 17.1008 9.16797 15.582C9.16797 14.0632 7.93675 12.832 6.41797 12.832C4.89919 12.832 3.66797 14.0632 3.66797 15.582C3.66797 17.1008 4.89919 18.332 6.41797 18.332Z" stroke="currentColor" strokeWidth="1.38" strokeLinecap="round" strokeLinejoin="round" />
-  <path d="M12.8346 12.8327H18.3346V17.416C18.3346 17.6591 18.2381 17.8923 18.0662 18.0642C17.8942 18.2361 17.6611 18.3327 17.418 18.3327H13.7513C13.5082 18.3327 13.275 18.2361 13.1031 18.0642C12.9312 17.8923 12.8346 17.6591 12.8346 17.416V12.8327ZM3.66797 3.66602H9.16797V8.24935C9.16797 8.49246 9.07139 8.72562 8.89948 8.89753C8.72757 9.06944 8.49442 9.16602 8.2513 9.16602H4.58464C4.34152 9.16602 4.10836 9.06944 3.93645 8.89753C3.76455 8.72562 3.66797 8.49246 3.66797 8.24935V3.66602Z" stroke="currentColor" strokeWidth="1.38" strokeLinecap="round" strokeLinejoin="round" />
-</svg>
-);
-const IconPrint = () => (<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M6.41406 5.95898V4.12565C6.41406 3.88254 6.51064 3.64938 6.68255 3.47747C6.85446 3.30556 7.08761 3.20898 7.33073 3.20898H19.2474C19.4905 3.20898 19.7237 3.30556 19.8956 3.47747C20.0675 3.64938 20.1641 3.88254 20.1641 4.12565V12.3757C20.1641 12.6188 20.0675 12.8519 19.8956 13.0238C19.7237 13.1957 19.4905 13.2923 19.2474 13.2923H18.3307" stroke="currentColor" strokeWidth="1.38" strokeLinecap="round" strokeLinejoin="round" />
-  <path d="M14.6654 8.70898H2.7487C2.24244 8.70898 1.83203 9.11939 1.83203 9.62565V17.8757C1.83203 18.3819 2.24244 18.7923 2.7487 18.7923H14.6654C15.1716 18.7923 15.582 18.3819 15.582 17.8757V9.62565C15.582 9.11939 15.1716 8.70898 14.6654 8.70898Z" stroke="currentColor" strokeWidth="1.38" strokeLinecap="round" strokeLinejoin="round" />
-  <path d="M1.83203 12.8346H15.582M15.582 10.543V16.043M1.83203 10.543V16.043M5.04036 15.5846H8.70703M11.457 15.5846H12.3737" stroke="currentColor" strokeWidth="1.38" strokeLinecap="round" strokeLinejoin="round" />
-</svg>
-);
-
-const Agreementicon =()=>(
+const IconContact = () => (
   <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M17.416 1.83398H4.58268C4.07642 1.83398 3.66602 2.24439 3.66602 2.75065V19.2507C3.66602 19.7569 4.07642 20.1673 4.58268 20.1673H17.416C17.9223 20.1673 18.3327 19.7569 18.3327 19.2507V2.75065C18.3327 2.24439 17.9223 1.83398 17.416 1.83398Z" stroke="currentColor" stroke-width="1.46667" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M7.33203 1.83398H11.457V9.16732L9.39453 7.33398L7.33203 9.16732V1.83398Z" stroke="currentColor" stroke-width="1.46667" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M7.33203 12.834H11.9154M7.33203 15.584H14.6654" stroke="currentColor" stroke-width="1.46667" stroke-linecap="round"/>
-</svg>
-
-
+    <path d="M5.95573 8.25H5.03906M9.6224 8.25H8.70573M5.95573 5.5H5.03906M9.6224 5.5H8.70573M16.9557 13.75H16.0391M16.9557 10.0833H16.0391" stroke="currentColor" strokeWidth="1.375" strokeLinecap="round" />
+    <path d="M12.832 7.33398V20.1673H16.4987C18.2275 20.1673 19.091 20.1673 19.6282 19.6302C20.1654 19.093 20.1654 18.2295 20.1654 16.5007V11.0007C20.1654 9.27182 20.1654 8.40832 19.6282 7.87115C19.091 7.33398 18.2275 7.33398 16.4987 7.33398H1Two.jsZM12.832 7.33398C12.832 4.74165 12.832 3.44457 12.0263 2.63973C11.2214 1.83398 9.92436 1.83398 7.33203 1.83398C4.7397 1.83398 3.44261 1.83398 2.63778 2.63973C1.83203 3.44457 1.83203 4.74165 1.83203 7.33398V9.16732" stroke="currentColor" strokeWidth="1.375" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M7.35586 12.7933C7.36119 13.0374 7.3177 13.2802 7.22793 13.5073C7.13816 13.7344 7.00392 13.9413 6.83309 14.1158C6.66227 14.2903 6.4583 14.4289 6.23316 14.5235C6.00802 14.6181 5.76625 14.6668 5.52205 14.6667C5.27784 14.6665 5.03612 14.6176 4.81108 14.5228C4.58603 14.428 4.3822 14.2892 4.21155 14.1145C4.0409 13.9398 3.90687 13.7328 3.81732 13.5056C3.72778 13.2784 3.68453 13.0356 3.69011 12.7914C3.70106 12.3124 3.8991 11.8567 4.24183 11.5219C4.58456 11.1871 5.04475 10.9998 5.52388 11C6.00301 11.0002 6.46301 11.188 6.80541 11.5232C7.14781 11.8584 7.34539 12.3142 7.35586 12.7933ZM1.89711 18.527C2.86694 17.0347 4.40786 16.4755 5.52252 16.4764C6.63719 16.4774 8.13227 17.0347 9.10302 18.527C9.16536 18.6233 9.18277 18.7424 9.12594 18.8424C8.89952 19.2448 8.19461 20.0432 7.68677 20.0964C7.10102 20.1587 5.57202 20.1679 5.52344 20.1679C5.47486 20.1679 3.89819 20.1587 3.31427 20.0964C2.80461 20.0423 2.10061 19.2448 1.87327 18.8424C1.84777 18.7927 1.8365 18.737 1.8407 18.6813C1.84491 18.6257 1.86443 18.5723 1.89711 18.527Z" stroke="currentColor" strokeWidth="1.375" strokeLinecap="round" />
+  </svg>
 );
-
+const IconEducation = () => (
+  <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fillRule="evenodd" clipRule="evenodd" d="M2.64506 6.56549C2.45219 6.65867 2.28911 6.8063 2.17488 6.99113C2.06066 7.17597 2 7.39037 2 7.6093C2 7.82822 2.06066 8.04262 2.17488 8.22746C2.28911 8.41229 2.45219 8.55992 2.64506 8.6531L4.25263 9.43249V13.9587C4.25263 14.8155 4.52355 15.7715 5.31384 16.3604C6.30986 17.0994 8.12427 18 11.0021 18C13.88 18 15.6899 17.0936 16.6904 16.3604C17.4807 15.7738 17.7517 14.8247 17.7517 13.9587V9.43249L18.8758 8.88634V13.9553C18.8758 14.1084 18.935 14.2552 19.0405 14.3635C19.1459 14.4718 19.2888 14.5326 19.4379 14.5326C19.587 14.5326 19.73 14.4718 19.8354 14.3635C19.9408 14.2552 20 14.1084 20 13.9553V7.60468C20 7.38601 19.9396 7.17182 19.8258 6.98703C19.712 6.80225 19.5494 6.65446 19.357 6.56087L12.9267 3.44332C12.3257 3.15141 11.6692 3 11.0044 3C10.3396 3 9.68305 3.15141 9.08206 3.44332L2.65181 6.56087L2.64506 6.56549ZM5.3768 13.9553V9.97171L9.07531 11.773C9.67631 12.0649 10.3328 12.2163 10.9976 12.2163C11.6624 12.2163 12.319 12.0649 12.92 11.773L16.6185 9.97171V13.9553C16.6185 14.5972 16.4161 15.1215 16.0227 15.4101C15.2088 16.014 13.6282 16.8419 10.9976 16.8419C8.36709 16.8419 6.78201 16.0198 5.97261 15.4101C5.58027 15.1191 5.3768 14.5915 5.3768 13.9553ZM9.55871 4.48712C10.0085 4.26829 10.5 4.15477 10.9976 4.15477C11.4953 4.15477 11.9868 4.26829 12.4366 4.48712L18.8668 7.60468L12.4366 10.7222C11.9868 10.9411 11.4953 11.0546 10.9976 11.0546C10.5 11.0546 10.0085 10.9411 9.55871 10.7222L3.12846 7.60468L9.55871 4.48712Z" fill="currentColor" />
+  </svg>
+);
+const IconDocuments = () => (
+  <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.81008 10.9993H12.0482M6.81008 13.0946H14.1434M6.81008 15.1898H9.95294M17.2863 16.2374V8.90411L12.0482 3.66602H6.81008C6.25439 3.66602 5.72146 3.88676 5.32852 4.2797C4.93559 4.67263 4.71484 5.20556 4.71484 5.76125V16.2374C4.71484 16.7931 4.93559 17.3261 5.32852 17.719C5.72146 18.1119 6.25439 18.3327 6.81008 18.3327H15.191C15.7467 18.3327 16.2797 18.1119 16.6726 17.719C17.0655 17.3261 17.2863 16.7931 17.2863 16.2374Z" stroke="currentColor" strokeWidth="1.38" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M12.0469 3.66602V6.80887C12.0469 7.36456 12.2676 7.8975 12.6606 8.29043C13.0535 8.68336 13.5864 8.90411 14.1421 8.90411H17.285" stroke="currentColor" strokeWidth="1.38" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+const IconReview = () => (
+  <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M15.5859 9.16602C17.1047 9.16602 18.3359 7.9348 18.3359 6.41602C18.3359 4.89723 17.1047 3.66602 15.5859 3.66602C14.0672 3.66602 12.8359 4.89723 12.8359 6.41602C12.8359 7.9348 14.0672 9.16602 15.5859 9.16602Z" stroke="currentColor" strokeWidth="1.38" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M6.41797 18.332C7.93675 18.332 9.16797 17.1008 9.16797 15.582C9.16797 14.0632 7.93675 12.832 6.41797 12.832C4.89919 12.832 3.66797 14.0632 3.66797 15.582C3.66797 17.1008 4.89919 18.332 6.41797 18.332Z" stroke="currentColor" strokeWidth="1.38" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M12.8346 12.8327H18.3346V17.416C18.3346 17.6591 18.2381 17.8923 18.0662 18.0642C17.8942 18.2361 17.6611 18.3327 17.418 18.3327H13.7513C13.5082 18.3327 13.275 18.2361 13.1031 18.0642C12.9312 17.8923 12.8346 17.6591 12.8346 17.416V12.8327ZM3.66797 3.66602H9.16797V8.24935C9.16797 8.49246 9.07139 8.72562 8.89948 8.89753C8.72757 9.06944 8.49442 9.16602 8.2513 9.16602H4.58464C4.34152 9.16602 4.10836 9.06944 3.93645 8.89753C3.76455 8.72562 3.66797 8.49246 3.66797 8.24935V3.66602Z" stroke="currentColor" strokeWidth="1.38" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+const IconPrint = () => (
+  <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.41406 5.95898V4.12565C6.41406 3.88254 6.51064 3.64938 6.68255 3.47747C6.85446 3.30556 7.08761 3.20898 7.33073 3.20898H19.2474C19.4905 3.20898 19.7237 3.30556 19.8956 3.47747C20.0675 3.64938 20.1641 3.88254 20.1641 4.12565V12.3757C20.1641 12.6188 20.0675 12.8519 19.8956 13.0238C19.7237 13.1957 19.4905 13.2923 19.2474 13.2923H18.3307" stroke="currentColor" strokeWidth="1.38" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M14.6654 8.70898H2.7487C2.24244 8.70898 1.83203 9.11939 1.83203 9.62565V17.8757C1.83203 18.3819 2.24244 18.7923 2.7487 18.7923H14.6654C15.1716 18.7923 15.582 18.3819 15.582 17.8757V9.62565C15.582 9.11939 15.1716 8.70898 14.6654 8.70898Z" stroke="currentColor" strokeWidth="1.38" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M1.83203 12.8346H15.582M15.582 10.543V16.043M1.83203 10.543V16.043M5.04036 15.5846H8.70703M11.457 15.5846H12.3737" stroke="currentColor" strokeWidth="1.38" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+const Agreementicon = () => (
+  <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.416 1.83398H4.58268C4.07642 1.83398 3.66602 2.24439 3.66602 2.75065V19.2507C3.66602 19.7569 4.07642 20.1673 4.58268 20.1673H17.416C17.9223 20.1673 18.3327 19.7569 18.3327 19.2507V2.75065C18.3327 2.24439 17.9223 1.83398 17.416 1.83398Z" stroke="currentColor" strokeWidth="1.46667" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M7.33203 1.83398H11.457V9.16732L9.39453 7.33398L7.33203 9.16732V1.83398Z" stroke="currentColor" strokeWidth="1.46667" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M7.33203 12.834H11.9154M7.33203 15.584H14.6654" stroke="currentColor" strokeWidth="1.46667" strokeLinecap="round"/>
+  </svg>
+);
 // --- End of Icon components ---
 
 const baseTabs = [
@@ -91,79 +90,77 @@ const baseTabs = [
   { label: 'Qualification Info', icon: <IconEducation />, content: <QualificationInfo /> },
   { label: 'Uploaded Documents', icon: <IconDocuments />, content: <UploadedDocuments /> },
   { label: 'Category', icon: <IconReview />, content: <CategoryInfo /> },
-  {label:'Agreement Info',icon:<Agreementicon/>,content:<AgreementInfoView/>},
+  { label: 'Agreement Info', icon: <Agreementicon />, content: <AgreementInfoView /> },
   { label: 'Account Info', icon: <IconPrint />, content: <AccountInfoContainer /> },
 ];
 
-// FIX: Accept 'initialStep' and set initial state
 function OnBoardingEmployeeNav({ role, onFinish, initialStep = 0 }) {
-  // Use initialStep when mounting/remounting
   const [currentStep, setCurrentStep] = useState(initialStep);
 
-  // FIX: Update internal state if initialStep changes (when coming back from Salary/Checklist)
   useEffect(() => {
     setCurrentStep(initialStep);
-  }, [initialStep]); 
+  }, [initialStep]);
 
-  // Conditionally create the final 'allSteps' array
   const salaryTab = {
     label: 'Salary Info',
     icon: <IconSalary />,
     content: <SalaryInfoRead />
   };
 
-  // If the role is 'CO', add the salaryTab to the end.
   const allSteps = role === 'CO' ? [...baseTabs, salaryTab] : baseTabs;
 
-  // handleNext only moves to the next step
+  // NEW: Navigate to step on click
+  const handleStepClick = (index) => {
+    setCurrentStep(index);
+  };
+
   const handleNext = () => {
     setCurrentStep((prev) => Math.min(prev + 1, allSteps.length - 1));
   };
 
-  // handlePrev only moves to the previous step
   const handlePrev = () => {
     setCurrentStep((prev) => Math.max(prev - 1, 0));
   };
 
-  // FIX: handleFinish passes the currentStep index back to the parent container
   const handleFinish = () => {
     if (onFinish) {
-      onFinish(currentStep); // Pass the currentStep index to parent (EmployeeModuleContainer)
+      onFinish(currentStep);
     }
   };
 
   const renderStepContent = () => {
     return allSteps[currentStep].content;
   };
-  // Determine if skip should hide
-const shouldHideSkip = () => {
-  // DO → hide skip only on last onboarding step (Account Info)
-  if (role === "DO") {
-    return allSteps[currentStep]?.label === "Account Info";
-  }
 
-  // CO → show skip on all onboarding steps, BUT hide only on Salary Info read view
-  if (role === "CO") {
-    return false; // allow skip on all onboarding steps
-  }
+  const shouldHideSkip = () => {
+    if (role === "DO") {
+      return allSteps[currentStep]?.label === "Account Info";
+    }
+    return false;
+  };
 
-  return false;
-};
-
+  const shouldShowEdit = () => {
+    const currentLabel = allSteps[currentStep]?.label;
+    const screensWithEdit = [
+        // "Agreement Info",
+        "Salary Info"
+        // "Account Info"
+    ];
+    return screensWithEdit.includes(currentLabel);
+  };
 
   return (
     <div className={navStyles.navContainer}>
-
       <Stepper
         steps={allSteps}
         currentStepIndex={currentStep}
+        onStepClick={handleStepClick} // Passing logic to Stepper
       />
 
       <div className={navStyles.stepContent}>
         {renderStepContent()}
       </div>
 
-      {/* The OnboardingFooter component uses the modified handleFinish logic */}
       <OnboardingFooter
         currentStep={currentStep}
         totalSteps={allSteps.length}
@@ -171,8 +168,9 @@ const shouldHideSkip = () => {
         onBack={handlePrev}
         allSteps={allSteps}
         role={role}
-        onFinish={handleFinish} // Use the new handler that passes the index
-         hideSkip={shouldHideSkip()}
+        onFinish={handleFinish}
+        hideSkip={shouldHideSkip()}
+        showEdit={shouldShowEdit()}
       />
     </div>
   );
